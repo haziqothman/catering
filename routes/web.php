@@ -15,16 +15,18 @@ Route::get('/', function () {
  */
 
 //Admin
-Route::get('/admin/testing', function () {
-    return 'This is a test response!';
+Route::group(['prefix' => 'admin/'], function () {
+    Route::get('/manage/package', [CatalogueController::class, 'displayManagePackage'])->name('admin.display.package');
+    Route::get('/package/edit', [CatalogueController::class, 'editPackage'])->name('admin.edit.package');
+});
+
+//Customer
+Route::group(['prefix' => 'customer/'], function(){
+    Route::get('/package/list', [CatalogueController::class, 'displayPackage'])->name('customer.display.package');
 });
 
 
-//Customer
-
-
-
- /**
+/**
  * 
  * 
  * 
