@@ -6,21 +6,32 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
 
 /*------------------------------------------
 --------------------------------------------
-All Normal Users Routes List
+All Customer Routes List
 --------------------------------------------
 --------------------------------------------*/
 
 Route::middleware(['auth', 'user-access:customer'])->group(function () {
-  
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::group(['prefix' => 'customer/'], function () {
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+        /**
+         * Manage Catalogue
+         */
+        Route::get('/package/list', [CatalogueController::class, 'displayPackage'])->name('customer.display.package');
+
+
+    });
 });
+
+
+
 
 /*------------------------------------------
 --------------------------------------------
@@ -28,34 +39,19 @@ All Admin Routes List
 --------------------------------------------
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
-  
-    Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
+    Route::group(['prefix' => 'admin/'], function () {
+        Route::get('/home', [HomeController::class, 'adminHome'])->name('admin.home');
+
+        /**
+         * Manage Catalogue
+         */
+        Route::get('/manage/package', [CatalogueController::class, 'displayManagePackage'])->name('admin.display.package');
+        Route::get('/package/{id}/edit', [CatalogueController::class, 'editPackage'])->name('admin.edit.package');
+
+        
+    });
 });
 
-
-/**
- * 
- * Manage Catalogue
- * 
- */
-
-//Admin
-Route::group(['prefix' => 'admin/'], function () {
-    Route::get('/manage/package', [CatalogueController::class, 'displayManagePackage'])->name('admin.display.package');
-    Route::get('/package/edit', [CatalogueController::class, 'editPackage'])->name('admin.edit.package');
-});
-
-//Customer
-Route::group(['prefix' => 'customer/'], function(){
-    Route::get('/package/list', [CatalogueController::class, 'displayPackage'])->name('customer.display.package');
-});
-
-
-/**
- * 
- * 
- * 
- */
 
 Auth::routes();
 
