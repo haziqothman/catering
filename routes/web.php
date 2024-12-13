@@ -46,8 +46,10 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
          * Manage Catalogue
          */
         Route::get('/manage/package', [CatalogueController::class, 'displayManagePackage'])->name('admin.display.package');
+        Route::get('/add/package', [CatalogueController::class, 'createPackage'])->name('admin.create.package');
+        Route::post('/store/package', [CatalogueController::class, 'storePackage'])->name('admin.store.package');
         Route::get('/package/{id}/edit', [CatalogueController::class, 'editPackage'])->name('admin.edit.package');
-
+        Route::post('/update/{id}/package', [CatalogueController::class, 'updatePackage'])->name('admin.update.package');
         
     });
 });
