@@ -13,10 +13,10 @@
             {{-- middle --}}
             <div class="container" style="width:100%">
                 {{-- Top div --}}
-                <div class="mb-3 p-3 pe-0 d-flex justify-content-between align-items-center" style="width:100%">
+                <div class="mb-3 p-3 pe-0 ps-5 d-flex justify-content-between align-items-center" style="width:100%">
 
                     {{-- Search --}}
-                    <div class="d-flex justify-content-center align-items-center ms-0"
+                    <div class="d-flex justify-content-center align-items-center ms-1 "
                         style="width: 100%; margin-right: auto; margin-left:28px">
                         <div class="d-flex align-items-center px-2"
                             style="border: 1px solid rgb(134, 134, 134); border-radius:10px; width:400px; height:35px; box-shadow: 1px 1px 10px #00000042;">
@@ -35,7 +35,7 @@
                             </form>
                         </div>
                     </div>
-                    {{-- ADD button --}}
+                    {{-- Filter button --}}
                     <div class="dropdown">
                         <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -48,9 +48,15 @@
                         </a>
 
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li ><span class="ms-3">Quantity</span></li>
+                            <li><a class="dropdown-item" href="{{ route('customer.display.package', ['filter' => 'minOrder100']) }}">> 100 pax</a></li>
+                            <li><a class="dropdown-item" href="{{ route('customer.display.package', ['filter' => 'minOrder200']) }}">> 200 pax</a></li>
+                            <li><a class="dropdown-item" href="{{ route('customer.display.package', ['filter' => 'minOrder500']) }}">> 500 pax</a></li>
+                            <hr>
+                            <li ><span class="ms-3">Price</span></li>
+                            <li><a class="dropdown-item" href="{{ route('customer.display.package', ['filter' => 'priceBelow10']) }}">< RM10.00 per pax</a></li>
+                            <li><a class="dropdown-item" href="{{ route('customer.display.package', ['filter' => 'priceBelow20']) }}">< RM20.00 per pax</a></li>
+                            <li><a class="dropdown-item" href="{{ route('customer.display.package', ['filter' => 'priceBelow30']) }}">< RM30.00 per pax</a></li>
                         </ul>
                     </div>
                 </div>
@@ -65,7 +71,8 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ $item->packageName }}</h5>
                                 <p class="card-text">{{ $item->packageDesc }}</p>
-                                <p class="card-text">RM {{ $item->packagePrice }}</p>
+                                <p class="card-text">Minimum order: {{ $item->minimumOrder }}</p>
+                                <p class="card-text">RM {{ $item->packagePrice }} per pax</p>
                                 <a href="" class="btn btn-primary">Book Now!</a>
                             </div>
                         </div>

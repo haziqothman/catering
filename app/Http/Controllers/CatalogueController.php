@@ -19,17 +19,45 @@ class CatalogueController extends Controller
      */
     public function displayManagePackage(Request $request)
     {
-        $package = Package::paginate(6);
-
-        //Search function
+        $packageQuery = Package::query();
         $search = $request->input('search');
-        if($search){
-            $package = Package::where('packageName', 'like', "%$search%")->paginate(6);
-            return view('ManageCatalogue.Admin.packageList', ['package' => $package]);
+        $filter = $request->input('filter');
+
+        // Searching
+        if ($search) {
+            $packageQuery->where('packageName', 'like', "%$search%");
         }
+
+        //Filter
+        if ($filter) {
+            switch ($filter) {
+                case 'minOrder100':
+                    $packageQuery->where('minimumOrder', '>=', 100);
+                    break;
+                case 'minOrder200':
+                    $packageQuery->where('minimumOrder', '>=', 200);
+                    break;
+                case 'minOrder500':
+                    $packageQuery->where('minimumOrder', '>=', 500);
+                    break;
+                case 'priceBelow10':
+                    $packageQuery->where('packagePrice', '<', 10);
+                    break;
+                case 'priceBelow20':
+                    $packageQuery->where('packagePrice', '<', 20);
+                    break;
+                case 'priceBelow30':
+                    $packageQuery->where('packagePrice', '<', 30);
+                    break;
+            }
+        }
+
+        $package = $packageQuery->paginate(6);
 
         return view('ManageCatalogue.Admin.packageList', ['package' => $package]);
     }
+
+
 
     /**
      * Display create new package form
@@ -160,13 +188,38 @@ class CatalogueController extends Controller
      */
     public function displayPackage(Request $request)
     {
-        $package = Package::paginate(6);
+        $packageQuery = Package::query();
         $search = $request->input('search');
+        $filter = $request->input('filter');
 
-        if($search){
-            $package = Package::where('packageName', 'like', "%$search%")->paginate(6);
-            return view('ManageCatalogue.Customer.packageList', ['package' => $package]);
+        if ($search) {
+            $packageQuery = Package::where('packageName', 'like', "%$search%");
         }
+
+        if ($filter) {
+            switch ($filter) {
+                case 'minOrder100':
+                    $packageQuery->where('minimumOrder', '>=', 100);
+                    break;
+                case 'minOrder200':
+                    $packageQuery->where('minimumOrder', '>=', 200);
+                    break;
+                case 'minOrder500':
+                    $packageQuery->where('minimumOrder', '>=', 500);
+                    break;
+                case 'priceBelow10':
+                    $packageQuery->where('packagePrice', '<', 10);
+                    break;
+                case 'priceBelow20':
+                    $packageQuery->where('packagePrice', '<', 20);
+                    break;
+                case 'priceBelow30':
+                    $packageQuery->where('packagePrice', '<', 30);
+                    break;
+            }
+        }
+
+        $package = $packageQuery->paginate(6);
 
         return view('ManageCatalogue.Customer.packageList', ['package' => $package]);
     }
