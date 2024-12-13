@@ -2,32 +2,57 @@
 
 use App\Http\Controllers\CatalogueController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
+
+Route::get('/', function () {
+    return view('auth.login');
+});
+
+Auth::routes();
+
+/*------------------------------------------
+--------------------------------------------
+All Customer Routes List
+--------------------------------------------
+--------------------------------------------*/
+
+Route::middleware(['auth', 'user-access:customer'])->group(function () {
+    Route::group(['prefix' => 'customer/'], function () {
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+        /**
+         * Manage Catalogue
+         */
+        Route::get('/package/list', [CatalogueController::class, 'displayPackage'])->name('customer.display.package');
 
 
-Route::get('/', function () { return view('welcome');});
-
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-
-/**
- * 
- * Manage Catalogue
- * 
- */
-
-//Admin
-Route::get('/admin/testing', function () {
-    return 'This is a test response!';
+    });
 });
 
 
-//Customer
 
 
+/*------------------------------------------
+--------------------------------------------
+All Admin Routes List
+--------------------------------------------
+--------------------------------------------*/
+Route::middleware(['auth', 'user-access:admin'])->group(function () {
+    Route::group(['prefix' => 'admin/'], function () {
+        Route::get('/home', [HomeController::class, 'adminHome'])->name('admin.home');
 
- /**
- * 
- * 
- * 
- */
+        /**
+         * Manage Catalogue
+         */
+        Route::get('/manage/package', [CatalogueController::class, 'displayManagePackage'])->name('admin.display.package');
+        Route::get('/package/{id}/edit', [CatalogueController::class, 'editPackage'])->name('admin.edit.package');
+
+        
+    });
+});
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
