@@ -37,7 +37,7 @@
                             <a class="nav-link" href="{{ route('booking.index') }}">Booking</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('catalogue.index') }}">Catalogue</a>
+                            <a class="nav-link" href="">Catalogue</a>
                         </li>
                     </ul>
 

@@ -9,7 +9,6 @@ use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('auth.login');
-    return view('auth.login');
 });
 
 Auth::routes();
@@ -33,7 +32,7 @@ Route::middleware(['auth', 'user-access:customer'])->group(function () {
     });
 });
 
-
+Route::get('/catalogue', [CatalogueController::class, 'index'])->name('catalogue.index');
 
 
 /*------------------------------------------
@@ -59,10 +58,19 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 });
 
 
-Auth::routes();
+// Manage User Profile
+    
+    
+// Route to view the profile
+Route::middleware(['auth'])->get('/profile', [ProfileController::class, 'show'])->name('profile.show');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route to edit the profile
+Route::middleware(['auth'])->get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// Route to update the profile
+Route::middleware(['auth'])->post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+//  Booking 
+
+Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
+
