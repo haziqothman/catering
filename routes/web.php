@@ -50,6 +50,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
         Route::post('/store/package', [CatalogueController::class, 'storePackage'])->name('admin.store.package');
         Route::get('/package/{id}/edit', [CatalogueController::class, 'editPackage'])->name('admin.edit.package');
         Route::post('/update/{id}/package', [CatalogueController::class, 'updatePackage'])->name('admin.update.package');
+        Route::delete('/destroy/{id}/package', [CatalogueController::class, 'destroyPackage'])->name('admin.destroy.package');
         
     });
 });

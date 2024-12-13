@@ -17,9 +17,16 @@ class CatalogueController extends Controller
     /**
      * Display all available packages
      */
-    public function displayManagePackage()
+    public function displayManagePackage(Request $request)
     {
         $package = Package::paginate(6);
+
+        //Search function
+        $search = $request->input('search');
+        if($search){
+            $package = Package::where('packageName', 'like', "%$search%")->paginate(6);
+            return view('ManageCatalogue.Admin.packageList', ['package' => $package]);
+        }
 
         return view('ManageCatalogue.Admin.packageList', ['package' => $package]);
     }
@@ -115,6 +122,23 @@ class CatalogueController extends Controller
         return redirect()->route('admin.display.package')->with('success', 'Package updated successfully!');
     }
 
+    public function destroyPackage(String $id)
+    {
+        $package = Package::find($id);
+
+        if (!$package) {
+            return redirect()->route('admin.display.package')->with('error', 'Package not found.');
+        }
+
+        $filePath = public_path('package');
+        if ($package->packageImage && file_exists($filePath . '/' . $package->packageImage)) {
+            unlink($filePath . '/' . $package->packageImage);
+        }
+
+        $package->delete();
+        return redirect()->route('admin.display.package')->with('destroy', 'Package deleted successfully!');
+    }
+
 
     /**
      * 
@@ -134,9 +158,17 @@ class CatalogueController extends Controller
     /**
      * Display all available packages
      */
-    public function displayPackage()
+    public function displayPackage(Request $request)
     {
-        return view('ManageCatalogue.Customer.packageList');
+        $package = Package::paginate(6);
+        $search = $request->input('search');
+
+        if($search){
+            $package = Package::where('packageName', 'like', "%$search%")->paginate(6);
+            return view('ManageCatalogue.Customer.packageList', ['package' => $package]);
+        }
+
+        return view('ManageCatalogue.Customer.packageList', ['package' => $package]);
     }
 
     /**
