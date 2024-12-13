@@ -32,9 +32,6 @@ Route::middleware(['auth', 'user-access:customer'])->group(function () {
     });
 });
 
-Route::get('/catalogue', [CatalogueController::class, 'index'])->name('catalogue.index');
-
-
 /*------------------------------------------
 --------------------------------------------
 All Admin Routes List
