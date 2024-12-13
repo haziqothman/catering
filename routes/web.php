@@ -4,9 +4,11 @@ use App\Http\Controllers\CatalogueController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
+
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -33,11 +35,33 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 });
 
 
+
+// Manage User Profile
+
+// Customer
+Auth::routes();
+    
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    
+// Route to view the profile
+Route::middleware(['auth'])->get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+
+// Route to edit the profile
+Route::middleware(['auth'])->get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+
+// Route to update the profile
+Route::middleware(['auth'])->post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+
+
+
 /**
  * 
  * Manage Catalogue
  * 
  */
+
+ Route::get('/catalogue', [CatalogueController::class, 'index'])->name('catalogue.index');
 
 //Admin
 Route::group(['prefix' => 'admin/'], function () {
@@ -57,6 +81,14 @@ Route::group(['prefix' => 'customer/'], function(){
  * 
  */
 
+//  Booking 
+
+Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/', function () {
+    return view('welcome');
+})->name('home');
