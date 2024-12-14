@@ -1,16 +1,16 @@
-@extends('layouts.app')
+@extends('layouts.navigation')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            @if(auth()->user()->type == 'admin') 
-                    <div class="d-flex justify-content-end mb-3">
-                        <a href="{{ route('adminProfile.users') }}" class="btn btn-success">
-                            Manage Users
-                        </a>
-                    </div>
-                @endif
+              @if(auth()->user()->type == 'admin') 
+                  <div class="d-flex justify-content-end mb-3">
+                      <a href="{{ route('adminProfile.users') }}" class="btn btn-success">
+                          Manage Users
+                      </a>
+                  </div>
+              @endif
             <div class="card">
                 <div class="card-header">{{ __('Your Profile') }}</div>
                 <div class="card-body">

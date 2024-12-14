@@ -12,6 +12,8 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -30,17 +32,17 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav">
-                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        @if (Auth::check() && Auth::user()->type === 'admin')
-                            <a class="nav-link" href="{{ route('admin.home') }}"> Home</a>
-                        @elseif (Auth::check() && Auth::user()->type === 'customer')
-                            <a class="nav-link" href="{{ route('home') }}"> Home</a>
-                        @else
-                            <a class="nav-link" href="{{ url('/') }}">Home</a>
-                        @endif
-                    </li>
-                </ul>
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                @if (Auth::check() && Auth::user()->type === 'admin')
+                                    <a class="nav-link" href="{{ route('admin.home') }}"> Home</a>
+                                @elseif (Auth::check() && Auth::user()->type === 'customer')
+                                    <a class="nav-link" href="{{ route('home') }}"> Home</a>
+                                @else
+                                    <a class="nav-link" href="{{ url('/') }}">Home</a>
+                                @endif
+                            </li>
+                        </ul>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Catalogue</a>
                     </li>

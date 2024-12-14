@@ -96,12 +96,37 @@ class AdminProfileController extends Controller
   }
 
   public function deleteUser(User $user)
+  {
+      // Delete the user
+      $user->delete();
+
+      // Redirect back with a success message
+      return redirect()->route('adminProfile.users')->with('success', 'User deleted successfully!');
+  }
+
+  public function create()
+    {
+        return view('adminProfile.create'); // Return a view for creating an admin
+    }
+
+    // Method to handle storing the new admin
+   // app/Http/Controllers/AdminProfileController.php
+
+   public function store(Request $request)
 {
-    // Delete the user
-    $user->delete();
+    $request->validate([
+        'name' => 'required',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|min:8|confirmed',
+    ]);
 
-    // Redirect back with a success message
-    return redirect()->route('adminProfile.users')->with('success', 'User deleted successfully!');
+    User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'type' => 1,
+    ]);
+
+    return redirect()->route('adminProfile.users')->with('success', 'Admin created successfully!');
 }
-
 }

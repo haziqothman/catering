@@ -35,17 +35,17 @@
 
         <div class="collapse navbar-collapse ms-5" id="navbarNavDropdown">
             <ul class="navbar-nav">
-            <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            @if (Auth::check() && Auth::user()->type === 'admin')
-                                <a class="nav-link" href="{{ route('admin.home') }}"> Home</a>
-                            @elseif (Auth::check() && Auth::user()->type === 'customer')
-                                <a class="nav-link" href="{{ route('home') }}"> Home</a>
-                            @else
-                                <a class="nav-link" href="{{ url('/') }}">Home</a>
-                            @endif
-                        </li>
-                    </ul>
+                 <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        @if (Auth::check() && Auth::user()->type === 'admin')
+                            <a class="nav-link" href="{{ route('admin.home') }}"> Home</a>
+                        @elseif (Auth::check() && Auth::user()->type === 'customer')
+                            <a class="nav-link" href="{{ route('home') }}"> Home</a>
+                        @else
+                            <a class="nav-link" href="{{ url('/') }}">Home</a>
+                        @endif
+                    </li>
+                </ul>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Catalogue</a>
                 </li>
@@ -58,17 +58,28 @@
             </ul>
         </div>
 
-        <div class="me-4">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                Dropdown link
+        <li class="nav-item dropdown">
+            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                {{ Auth::user()->name }}
             </a>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
+
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            @if (Auth::user()->type === 'admin')
+                <a href="{{ route('adminProfile.show') }}" class="dropdown-item">Profile</a>
+            @elseif (Auth::user()->type === 'customer')
+                <a href="{{ route('customerProfile.show') }}" class="dropdown-item">Profile</a>
+            @endif
+                <a class="dropdown-item" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
             </div>
-        </div>
+        </li>
 
     </nav>
     @yield('content')

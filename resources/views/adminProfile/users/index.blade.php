@@ -4,17 +4,19 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-             @if(auth()->user()->type == 'admin') 
-                    <div class="d-flex justify-content-end mb-3">
-                        <a href="{{ route('adminProfile.users') }}" class="btn btn-success">
-                            Add Admin
-                        </a>
-                    </div>
-                @endif
+            @if(auth()->user()->type == 'admin') 
+                <div class="d-flex justify-content-between mb-3">
+                    <a href="{{ route('adminProfile.show') }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> 
+                    </a>
+                    <a href="{{ route('adminProfile.create') }}" class="btn btn-success">
+                        Add Admin
+                    </a>
+                </div>
+            @endif 
             <div class="card">
                 <div class="card-header">{{ __('Users List') }}</div>
                     <div class="card-body">
-                        <!-- Check if there are users to display -->
                         @if($users->isEmpty())
                             <p>No users found.</p>
                         @else
