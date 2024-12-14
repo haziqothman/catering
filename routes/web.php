@@ -77,8 +77,3 @@ Route::prefix('admin')->middleware(['auth', 'user-access:admin'])->group(functio
 
 //  Booking 
 
-<<<<<<< HEAD
-Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
-=======
-Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
->>>>>>> 30666df30ef15d536c34d4f55bcc8bcc0fe31b72

@@ -89,19 +89,12 @@
             </ul>
         </div>
 
-<<<<<<< HEAD
         <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-=======
-        <div class="me-4">
-            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
->>>>>>> 30666df30ef15d536c34d4f55bcc8bcc0fe31b72
                 {{ Auth::user()->name }}
             </a>
 
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-<<<<<<< HEAD
             @if (Auth::user()->type === 'admin')
                 <a href="{{ route('adminProfile.show') }}" class="dropdown-item">Profile</a>
             @elseif (Auth::user()->type === 'customer')
@@ -110,11 +103,6 @@
                 <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-=======
-                <a class="dropdown-item" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                                 document.getElementById('logout-form').submit();">
->>>>>>> 30666df30ef15d536c34d4f55bcc8bcc0fe31b72
                     {{ __('Logout') }}
                 </a>
 
