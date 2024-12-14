@@ -20,7 +20,9 @@ All Normal Users Routes List
 --------------------------------------------
 --------------------------------------------*/
 
-Route::middleware(['auth', 'user-access:customer'])->group(function () {
+// Manage User Profile
+
+Route::prefix('customer')->middleware(['auth', 'user-access:customer'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::middleware(['auth'])->get('/customerProfile', [CustomerProfileController::class, 'show'])->name('customerProfile.show');
     Route::middleware(['auth'])->get('/customerProfile/edit', [CustomerProfileController::class, 'edit'])->name('customerProfile.edit');
@@ -36,11 +38,17 @@ Route::middleware(['auth', 'user-access:customer'])->group(function () {
 All Admin Routes List
 --------------------------------------------
 --------------------------------------------*/
-Route::middleware(['auth', 'user-access:admin'])->group(function () {
-   Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
-   Route::middleware(['auth'])->get('/adminProfile', [AdminProfileController::class, 'show'])->name('adminProfile.show');
-   Route::middleware(['auth'])->get('/adminProfile/edit', [AdminProfileController::class, 'edit'])->name('adminProfile.edit');
-   Route::middleware(['auth'])->post('/adminProfile/update', [AdminProfileController::class, 'update'])->name('adminProfile.update');
+Route::prefix('admin')->middleware(['auth', 'user-access:admin'])->group(function () {
+    Route::get('/home', [HomeController::class, 'adminHome'])->name('admin.home');
+    
+    Route::middleware(['auth'])->get('/profile', [AdminProfileController::class, 'show'])->name('adminProfile.show');
+    Route::middleware(['auth'])->get('/profile/edit', [AdminProfileController::class, 'edit'])->name('adminProfile.edit');
+    Route::middleware(['auth'])->post('/profile/update', [AdminProfileController::class, 'update'])->name('adminProfile.update');
+
+    // List Users
+    Route::get('/users', [AdminProfileController::class, 'listUsers'])->name('adminProfile.users');
+    Route::delete('/admin/users/{user}', [AdminProfileController::class, 'deleteUser'])->name('adminProfile.delete');
+
 });
 
 

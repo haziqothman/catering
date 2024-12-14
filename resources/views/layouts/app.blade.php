@@ -29,17 +29,28 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            @if (Auth::check() && Auth::user()->type === 'admin')
-                                <a class="nav-link" href="{{ route('admin.home') }}"> Home</a>
-                            @elseif (Auth::check() && Auth::user()->type === 'customer')
-                                <a class="nav-link" href="{{ route('home') }}"> Home</a>
-                            @else
-                                <a class="nav-link" href="{{ url('/') }}">Home</a>
-                            @endif
-                        </li>
-                    </ul>
+                    <ul class="navbar-nav">
+                 <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        @if (Auth::check() && Auth::user()->type === 'admin')
+                            <a class="nav-link" href="{{ route('admin.home') }}"> Home</a>
+                        @elseif (Auth::check() && Auth::user()->type === 'customer')
+                            <a class="nav-link" href="{{ route('home') }}"> Home</a>
+                        @else
+                            <a class="nav-link" href="{{ url('/') }}">Home</a>
+                        @endif
+                    </li>
+                </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Catalogue</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Booking</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Review</a>
+                    </li>
+                </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">

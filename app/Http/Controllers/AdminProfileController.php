@@ -1,7 +1,8 @@
 <?php
   
 namespace App\Http\Controllers;
-  
+
+use App\Models\User;
 use Illuminate\Http\Request;
 use Hash;
   
@@ -86,5 +87,21 @@ class AdminProfileController extends Controller
       $user = auth()->user(); 
       return view('adminProfile.show', compact('user'));
   }
- 
+
+  // AdminProfileController.php
+  public function listUsers()
+  {
+      $users = User::all();  // Fetch the users, adjust based on your logic
+      return view('adminProfile.users.index', compact('users'));  // Pass users to the view
+  }
+
+  public function deleteUser(User $user)
+{
+    // Delete the user
+    $user->delete();
+
+    // Redirect back with a success message
+    return redirect()->route('adminProfile.users')->with('success', 'User deleted successfully!');
+}
+
 }
