@@ -61,9 +61,17 @@
 
         <div class="collapse navbar-collapse ms-5" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</span></a>
-                </li>
+            <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            @if (Auth::check() && Auth::user()->type === 'admin')
+                                <a class="nav-link" href="{{ route('admin.home') }}"> Home</a>
+                            @elseif (Auth::check() && Auth::user()->type === 'customer')
+                                <a class="nav-link" href="{{ route('home') }}"> Home</a>
+                            @else
+                                <a class="nav-link" href="{{ url('/') }}">Home</a>
+                            @endif
+                        </li>
+                    </ul>
                 <li class="nav-item">
                     @if (Auth::user()->type == 'admin')
                         <a class="nav-link" href="{{ route('admin.display.package') }}">Catalogue</a>

@@ -4,7 +4,8 @@ use App\Http\Controllers\CatalogueController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CustomerProfileController;
+use App\Http\Controllers\AdminProfileController;
 
 
 Route::get('/', function () {
@@ -19,55 +20,67 @@ All Customer Routes List
 --------------------------------------------
 --------------------------------------------*/
 
-Route::middleware(['auth', 'user-access:customer'])->group(function () {
-    Route::group(['prefix' => 'customer/'], function () {
-        Route::get('/home', [HomeController::class, 'index'])->name('home');
+// Manage User Profile
 
-        /**
-         * Manage Catalogue
-         */
-        Route::get('/package/list', [CatalogueController::class, 'displayPackage'])->name('customer.display.package');
-
-
-    });
+Route::prefix('customer')->middleware(['auth', 'user-access:customer'])->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::middleware(['auth'])->get('/customerProfile', [CustomerProfileController::class, 'show'])->name('customerProfile.show');
+    Route::middleware(['auth'])->get('/customerProfile/edit', [CustomerProfileController::class, 'edit'])->name('customerProfile.edit');
+    Route::middleware(['auth'])->post('/customerProfile/update', [CustomerProfileController::class, 'update'])->name('customerProfile.update');
 });
+
+
+
+
 
 /*------------------------------------------
 --------------------------------------------
 All Admin Routes List
 --------------------------------------------
 --------------------------------------------*/
-Route::middleware(['auth', 'user-access:admin'])->group(function () {
-    Route::group(['prefix' => 'admin/'], function () {
-        Route::get('/home', [HomeController::class, 'adminHome'])->name('admin.home');
+Route::prefix('admin')->middleware(['auth', 'user-access:admin'])->group(function () {
+    Route::get('/home', [HomeController::class, 'adminHome'])->name('admin.home');
+    
+    Route::middleware(['auth'])->get('/profile', [AdminProfileController::class, 'show'])->name('adminProfile.show');
+    Route::middleware(['auth'])->get('/profile/edit', [AdminProfileController::class, 'edit'])->name('adminProfile.edit');
+    Route::middleware(['auth'])->post('/profile/update', [AdminProfileController::class, 'update'])->name('adminProfile.update');
 
-        /**
-         * Manage Catalogue
-         */
-        Route::get('/manage/package', [CatalogueController::class, 'displayManagePackage'])->name('admin.display.package');
-        Route::get('/add/package', [CatalogueController::class, 'createPackage'])->name('admin.create.package');
-        Route::post('/store/package', [CatalogueController::class, 'storePackage'])->name('admin.store.package');
-        Route::get('/package/{id}/edit', [CatalogueController::class, 'editPackage'])->name('admin.edit.package');
-        Route::post('/update/{id}/package', [CatalogueController::class, 'updatePackage'])->name('admin.update.package');
-        Route::delete('/destroy/{id}/package', [CatalogueController::class, 'destroyPackage'])->name('admin.destroy.package');
-        
-    });
+    // List Users
+    Route::get('/users', [AdminProfileController::class, 'listUsers'])->name('adminProfile.users');
+    Route::delete('/admin/users/{user}', [AdminProfileController::class, 'deleteUser'])->name('adminProfile.delete');
+
 });
 
 
-// Manage User Profile
-    
-    
-// Route to view the profile
-Route::middleware(['auth'])->get('/profile', [ProfileController::class, 'show'])->name('profile.show');
 
-// Route to edit the profile
-Route::middleware(['auth'])->get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+/**
+ * 
+ * Manage Catalogue
+ * 
+ */
 
-// Route to update the profile
-Route::middleware(['auth'])->post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+ Route::get('/catalogue', [CatalogueController::class, 'index'])->name('catalogue.index');
+
+//Admin
+Route::group(['prefix' => 'admin/'], function () {
+    Route::get('/manage/package', [CatalogueController::class, 'displayManagePackage'])->name('admin.display.package');
+    Route::get('/package/edit', [CatalogueController::class, 'editPackage'])->name('admin.edit.package');
+});
+
+//Customer
+Route::group(['prefix' => 'customer/'], function(){
+    Route::get('/package/list', [CatalogueController::class, 'displayPackage'])->name('customer.display.package');
+});
+
+
+/**
+ * 
+ * 
+ * 
+ */
 
 //  Booking 
 
 Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
+
 

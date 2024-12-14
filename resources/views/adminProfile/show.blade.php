@@ -4,9 +4,15 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @if(auth()->user()->type == 'admin') 
+                    <div class="d-flex justify-content-end mb-3">
+                        <a href="{{ route('adminProfile.users') }}" class="btn btn-success">
+                            Manage Users
+                        </a>
+                    </div>
+                @endif
             <div class="card">
                 <div class="card-header">{{ __('Your Profile') }}</div>
-
                 <div class="card-body">
                     <table class="table">
                         <tr>
@@ -32,6 +38,14 @@
                             <td>{{ $user->address }}</td>
                         </tr>
                         @endif
+
+                        @if ($user->postcode)
+                        <tr>
+                            <th>Postcode:</th>
+                            <td>{{ $user->postcode }}</td>
+                        </tr>
+                        @endif
+                      
                       
                         @if ($user->city)
                         <tr>
@@ -58,12 +72,21 @@
                             <th>Joined At:</th>
                             <td>{{ $user->created_at->format('d M Y') }}</td>
                         </tr>
+                        
+                        <tr>
+                            <th>Current Role:</th>
+                            <td>{{ $user->type }}</td>  <!-- This should show 'admin' or 'customer' -->
+                        </tr>
+                        
+                   
                     </table>
 
-                    <div class="d-flex justify-content-center gap-2">
-                        <a href="{{ route('profile.edit') }}" class="btn btn-primary">Edit Profile</a>
-                        <a href="{{ route('home') }}" class="btn btn-secondary">Cancel</a>
-                     </div>   
+                      <div class="d-flex justify-content-center gap-2">
+                        <a href="{{ route('adminProfile.edit') }}" class="btn btn-primary">Edit Profile</a>
+
+                        <a href="{{ auth()->user()->type == 'admin' ? route('admin.home') : route('home') }}" class="btn btn-secondary">Cancel</a>
+                     </div> 
+
                 </div>
             </div>
         </div>

@@ -20,7 +20,8 @@ class CreateUsersSeeder extends Seeder
                'name'=>'Admin User',
                'email'=>'admin@itsolutionstuff.com',
                'type'=>1,
-               'password'=> bcrypt('123456'),
+               'password'=> bcrypt('12345678'),
+               'postcode' => '12345', // Add postcode field
             ],
         
             [
@@ -28,6 +29,7 @@ class CreateUsersSeeder extends Seeder
                'email'=>'customer@itsolutionstuff.com',
                'type'=>0,
                'password'=> bcrypt('123456'),
+               'postcode' => '54321', // Add postcode field
             ],
         ];
     

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
             $table->string('city')->nullable();
+            $table->string('postcode')->nullable();
             $table->string('company')->nullable();  // Optional company field
             $table->string('identification_card')->nullable();  // Optional identification card field
         });
@@ -26,7 +27,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['address', 'phone', 'city', 'company', 'identification_card']);
+            $table->dropColumn(['address', 'phone', 'city','postcode', 'company', 'identification_card']);
         });
     }
 };

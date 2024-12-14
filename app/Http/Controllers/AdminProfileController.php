@@ -1,11 +1,12 @@
 <?php
   
 namespace App\Http\Controllers;
-  
+
+use App\Models\User;
 use Illuminate\Http\Request;
 use Hash;
   
-class ProfileController extends Controller
+class AdminProfileController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -32,50 +33,18 @@ class ProfileController extends Controller
      *
      * @return response()
      */
-  //   public function store(Request $request)
-  // {
-  //   $request->validate([
-  //       'name' => 'required',
-  //       'email' => 'required|email',
-  //       'address' => 'nullable|string',
-  //       'phone' => 'nullable|string',
-  //       'city' => 'nullable|string',
-  //       'confirm_password' => 'required_with:password|same:password',
-  //       'avatar' => 'image',
-  //   ]);
-
-  //   $input = $request->all();
-    
-  //   if ($request->hasFile('avatar')) {
-  //       $avatarName = time().'.'.$request->avatar->getClientOriginalExtension();
-  //       $request->avatar->move(public_path('avatars'), $avatarName);
-
-  //       $input['avatar'] = $avatarName;
-  //   } else {
-  //       unset($input['avatar']);
-  //   }
-
-  //   if ($request->filled('password')) {
-  //       $input['password'] = Hash::make($input['password']);
-  //   } else {
-  //       unset($input['password']);
-  //   }
-
-  //   auth()->user()->update($input);
-
-  //   return back()->with('success', 'Profile updated successfully.');
-  // }
+  
 
   public function show()
   {
-      $user = auth()->user(); // Get the currently authenticated user
-      return view('profile.show', compact('user'));
+      $user = auth()->user(); 
+      return view('adminProfile.show', compact('user'));
   }
 
   public function edit()
   {
-    $user = auth()->user(); // Get the currently authenticated user
-    return view('profile.edit', compact('user'));
+    $user = auth()->user(); 
+    return view('adminProfile.edit', compact('user'));
   }
 
   public function update(Request $request)
@@ -86,10 +55,9 @@ class ProfileController extends Controller
         'email' => 'required|email|max:255|unique:users,email,' . auth()->id(),
         'phone' => 'nullable|string|max:15',
         'address' => 'nullable|string|max:255',
+        'postcode' => 'required|numeric|min:10000|max:99999',
         'city' => 'nullable|string|max:100',
-        'company' => 'nullable|string|max:100',
         'identification_card' => 'nullable|string|max:255',
-        // Validate password only if provided
         'password' => 'nullable|string|min:8|confirmed',
     ]);
 
@@ -101,7 +69,7 @@ class ProfileController extends Controller
         $user->phone = $validatedData['phone'];
         $user->address = $validatedData['address'];
         $user->city = $validatedData['city'];
-        $user->company = $validatedData['company'];
+        $user->postcode = $validatedData['postcode'];
         $user->identification_card = $validatedData['identification_card'];
 
     // Update password only if a new one is provided
@@ -111,6 +79,29 @@ class ProfileController extends Controller
 
     $user->save();
 
-    return redirect()->route('profile.show')->with('success', 'Profile updated successfully!');
+    return redirect()->route('adminProfile.show')->with('success', 'Profile updated successfully!');
   }
+
+  public function showProfile()
+  {
+      $user = auth()->user(); 
+      return view('adminProfile.show', compact('user'));
+  }
+
+  // AdminProfileController.php
+  public function listUsers()
+  {
+      $users = User::all();  // Fetch the users, adjust based on your logic
+      return view('adminProfile.users.index', compact('users'));  // Pass users to the view
+  }
+
+  public function deleteUser(User $user)
+{
+    // Delete the user
+    $user->delete();
+
+    // Redirect back with a success message
+    return redirect()->route('adminProfile.users')->with('success', 'User deleted successfully!');
+}
+
 }
