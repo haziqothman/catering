@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Edit Profile') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('customerProfile.update') }}" enctype="multipart/form-data">
                         @csrf
                         
                         @if (session('success'))
@@ -42,9 +42,9 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="phone" class="form-label">Phone</label>
-                            <input class="form-control" type="text" id="phone" name="phone" value="{{ old('phone', $user->phone) }}" required>
-                            @error('phone')
+                            <label for="postcode" class="form-label">Postcode</label>
+                            <input class="form-control" type="number" id="postcode" name="postcode" value="{{ old('postcode', $user->postcode) }}" required>
+                            @error('postcode')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -56,6 +56,15 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input class="form-control" type="text" id="phone" name="phone" value="{{ old('phone', $user->phone) }}" required>
+                            @error('phone')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
 
                         <!-- Optional company field -->
                         <div class="mb-3">
@@ -86,7 +95,7 @@
 
                       <div class="d-flex justify-content-center gap-2">
                           <button type="submit" class="btn btn-primary">Update Profile</button>
-                          <a href="{{ route('profile.show') }}" class="btn btn-secondary">Cancel</a>
+                          <a href="{{ route('customerProfile.show') }}" class="btn btn-secondary">Cancel</a>
                        </div>
                     </form>
                 </div>
