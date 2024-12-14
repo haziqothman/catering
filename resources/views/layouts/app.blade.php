@@ -30,19 +30,25 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+                        <li class="nav-item">
+                            @if (Auth::check() && Auth::user()->type === 'admin')
+                                <a class="nav-link" href="{{ route('admin.home') }}"> Home</a>
+                            @elseif (Auth::check() && Auth::user()->type === 'customer')
+                                <a class="nav-link" href="{{ route('home') }}"> Home</a>
+                            @else
+                                <a class="nav-link" href="{{ url('/') }}">Home</a>
+                            @endif
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
-
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
@@ -55,6 +61,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                @if (Auth::user()->type === 'admin')
+                                    <a href="{{ route('adminProfile.show') }}" class="dropdown-item">Profile</a>
+                                @elseif (Auth::user()->type === 'customer')
+                                    <a href="{{ route('customerProfile.show') }}" class="dropdown-item">Profile</a>
+                                @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
