@@ -16,7 +16,7 @@
                 <div class="card-body">
                     <table class="table">
                         <tr>
-                            <th>Name:</th>
+                            <th>Namee:</th>
                             <td>{{ $user->name }}</td>
                         </tr>
 
