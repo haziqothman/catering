@@ -69,11 +69,4 @@ Route::prefix('admin')->middleware(['auth', 'user-access:admin'])->group(functio
 });
 
 
-/**
- * 
- * 
- * 
- */
-
-//  Booking 
 

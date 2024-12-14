@@ -17,13 +17,11 @@ return new class extends Migration
             //Foreign Key
             $table->unsignedBigInteger('userId');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
-
             $table->string('packageName');
             $table->decimal('packagePrice',10,2);
             $table->string('packageDesc');
             $table->integer('minimumOrder');
             $table->string('packageImage');
-
             $table->timestamps();
         });
     }

@@ -72,8 +72,8 @@
                 <div class="d-flex justify-content-center flex-wrap gap-3 mt-3 mb-4"
                     style="width:100%">
                     @foreach ($package as $item)
-                        {{-- Card 1 --}}
-                        <div class="card" style="width: 25rem; box-shadow: 5px 5px 8px rgb(224, 224, 224);">
+                        {{-- Card --}}
+                        <div class="card" style="width: 24rem; height:auto; box-shadow: 5px 5px 8px rgb(224, 224, 224);">
                             <img class="card-img-top" src="{{ asset('package/' . $item->packageImage) }}"
                                 alt="Package image" style="height:100%; width:auto">
                             <div class="card-body">

@@ -220,8 +220,9 @@ class CatalogueController extends Controller
         }
 
         $package = $packageQuery->paginate(6);
+        $allPackages = Package::all();
 
-        return view('ManageCatalogue.Customer.packageList', ['package' => $package]);
+        return view('ManageCatalogue.Customer.packageList', ['package' => $package, 'allPackages' => $allPackages]);
     }
 
     /**
