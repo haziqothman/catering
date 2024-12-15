@@ -21,7 +21,7 @@
           <div class="card-body p-3 p-md-4 p-xl-5">
             <div class="text-center mb-3">
               <a href="#">
-                <img src="https://a.fsdn.com/con/app/proj/caterease.s/screenshots/1-643dc0fc.png/1000/auto/1" alt="Logo" width="250">
+                <img src="{{ asset('avatars/1734019274.png') }}" alt="Logo" width="200">
               </a>
             </div>
             <h2 class="fs-6 fw-normal text-center text-secondary mb-4">Sign in to your account</h2>
