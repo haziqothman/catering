@@ -7,9 +7,15 @@ use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\RegisterController;
+
 
 Route::get('/', function () {
     return view('auth.login');
+});
+
+Route::middleware(['guest'])->group(function () {
+    Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 });
 
 Auth::routes();
@@ -72,15 +78,24 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
         Route::get('/adminProfile/edit', [AdminProfileController::class, 'edit'])->name('adminProfile.edit');
         Route::post('/adminProfile/update', [AdminProfileController::class, 'update'])->name('adminProfile.update');
     });
+        // List Users
+        Route::get('/users', [AdminProfileController::class, 'listUsers'])->name('adminProfile.users.index');
+        Route::get('/admin/profile/users', [AdminProfileController::class, 'listUsers'])->name('adminProfile.users.index');
+        Route::get('/users', [AdminProfileController::class, 'listUsers'])->name('adminProfile.users');
+        Route::delete('/admin/users/{user}', [AdminProfileController::class, 'deleteUser'])->name('adminProfile.delete');
+        Route::post('/admin/store', [AdminProfileController::class, 'store'])->name('adminProfile.store');
+        Route::get('/admin/create', [AdminProfileController::class, 'create'])->name('adminProfile.create');
+        Route::get('/admin/users/{id}/edit', [AdminProfileController::class, 'editUser'])->name('adminProfile.users.editUser');
+        Route::put('/admin/users/{id}', [AdminProfileController::class, 'updateUser'])->name('adminProfile.updateUser');
 
 });
 
-/**
- * Manage Catalogue (Common Routes)
- */
-Route::get('/catalogue', [CatalogueController::class, 'index'])->name('catalogue.index');
+    /**
+     * Manage Catalogue (Common Routes)
+     */
+    Route::get('/catalogue', [CatalogueController::class, 'index'])->name('catalogue.index');
 
-/**
- * Booking
- */
-Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
+    /**
+     * Booking
+     */
+    Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
