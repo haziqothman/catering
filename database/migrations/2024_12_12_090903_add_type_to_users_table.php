@@ -9,20 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->tinyInteger('type')->default(0); // Users: 0=>Customer, 1=>Admin
+            if (!Schema::hasColumn('users', 'type')) {
+                $table->tinyInteger('type')->default(0)->notNullable();
+            }
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            if (Schema::hasColumn('users', 'type')) {
+                $table->dropColumn('type');
+            }
         });
     }
 };

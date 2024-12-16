@@ -82,6 +82,8 @@ class AdminProfileController extends Controller
     return redirect()->route('adminProfile.show')->with('success', 'Profile updated successfully!');
   }
 
+// show all user   
+
   public function showProfile()
   {
       $user = auth()->user(); 
@@ -113,20 +115,64 @@ class AdminProfileController extends Controller
    // app/Http/Controllers/AdminProfileController.php
 
    public function store(Request $request)
-{
+    {
     $request->validate([
         'name' => 'required',
         'email' => 'required|email|unique:users,email',
         'password' => 'required|min:8|confirmed',
+        'address' => 'required|string|max:255', // Validate address
+        'phone' => 'required|string|max:15',     // Validate phone number
+        'city' => 'required|string|max:100',     // Validate city
+        'postcode' => 'required|numeric|min:10000|max:99999', // Validate postcode
+        'company' => 'nullable|string|max:255',  // Validate company (optional)
+        'identification_card' => 'nullable|string|max:255', // Validate identification card (optional)
     ]);
+
+    // Create user
 
     User::create([
         'name' => $request->name,
         'email' => $request->email,
         'password' => Hash::make($request->password),
         'type' => 1,
+        'address' => $request->address,
+        'phone' => $request->phone,
+        'city' => $request->city,
+        'postcode' => $request->postcode,
+        'company' => $request->company,
+        'identification_card' => $request->identification_card,
     ]);
 
     return redirect()->route('adminProfile.users')->with('success', 'Admin created successfully!');
-}
+    }
+
+    // edit user for admin
+
+    public function editUser($id)
+    {
+        $user = User::findOrFail($id); // Find the user by ID or fail if not found
+        return view('adminProfile.users.editUser', compact('user')); // Return the view with user data
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        // Validate the input
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $id,
+            'phone' => 'nullable|string|max:15',
+            'address' => 'nullable|string|max:255',
+            'postcode' => 'nullable|numeric|min:10000|max:99999',
+            'city' => 'nullable|string|max:100',
+            'identification_card' => 'nullable|string|max:255',
+        ]);
+
+        // Find the user by ID
+        $user = User::findOrFail($id);
+
+        // Update the user's details
+        $user->update($validatedData);
+
+        return redirect()->route('adminProfile.users.index')->with('success', 'User updated successfully!');
+    }
 }

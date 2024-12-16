@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-8 mt-5">
               @if(auth()->user()->type == 'admin') 
                   <div class="d-flex justify-content-end mb-3">
-                      <a href="{{ route('adminProfile.users') }}" class="btn btn-success">
-                          Manage Users
+                      <a href="{{ route('adminProfile.users') }}" class="btn btn-primary">
+                          Manage all Users
                       </a>
                   </div>
               @endif

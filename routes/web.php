@@ -1,15 +1,21 @@
 <?php
 
 use App\Http\Controllers\CatalogueController;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CustomerProfileController;
 use App\Http\Controllers\AdminProfileController;
+use App\Http\Controllers\BookingController;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\RegisterController;
 
 
 Route::get('/', function () {
     return view('auth.login');
+});
+
+Route::middleware(['guest'])->group(function () {
+    Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 });
 
 Auth::routes();
@@ -20,44 +26,48 @@ All Customer Routes List
 --------------------------------------------
 --------------------------------------------*/
 
-// Manage User Profile
+Route::middleware(['auth', 'user-access:customer'])->group(function () {
+    Route::group(['prefix' => 'customer/'], function () {
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::prefix('customer')->middleware(['auth', 'user-access:customer'])->group(function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::middleware(['auth'])->get('/customerProfile', [CustomerProfileController::class, 'show'])->name('customerProfile.show');
-    Route::middleware(['auth'])->get('/customerProfile/edit', [CustomerProfileController::class, 'edit'])->name('customerProfile.edit');
-    Route::middleware(['auth'])->post('/customerProfile/update', [CustomerProfileController::class, 'update'])->name('customerProfile.update');
+        /**
+         * Manage Catalogue
+         */
+        Route::get('/package/list', [CatalogueController::class, 'displayPackage'])->name('customer.display.package');
 
-    /**
-     * Manage Catalogue
-     */
-    Route::get('/package/list', [CatalogueController::class, 'displayPackage'])->name('customer.display.package');
+        /**
+         * Manage Booking
+         */
+        Route::get('/customer/dashboard', [BookingController::class, 'show'])->name('ManageBooking.Customer.dashboardBooking');
+        Route::get('/booking/create', [BookingController::class, 'create'])->name('ManageBooking.Customer.createBooking');
+        Route::post('/customer/store-booking', [BookingController::class, 'store'])->name('customer.store.booking');
+        Route::get('/customer/booking/{id}/edit', [BookingController::class, 'edit'])->name('ManageBooking.Customer.editBooking');
+        Route::put('/customer/booking/{id}', [BookingController::class, 'update'])->name('customer.update.booking');
+        Route::get('/booking/{id}/cancel', [BookingController::class, 'cancel'])->name('customer.cancel.booking');
+        Route::get('/booked-dates', function () {
+            $bookedDates = ['2024-12-25', '2024-12-31']; // Replace with dynamic booked dates from DB
+            return response()->json($bookedDates);
+        })->name('booked.dates');
+         
+        /**
+         * Manage Customer Profile
+         */
+        Route::get('/customerProfile', [CustomerProfileController::class, 'show'])->name('customerProfile.show');
+        Route::get('/customerProfile/edit', [CustomerProfileController::class, 'edit'])->name('customerProfile.edit');
+        Route::post('/customerProfile/update', [CustomerProfileController::class, 'update'])->name('customerProfile.update');
+    });
 });
-
-
-
-
 
 /*------------------------------------------
 --------------------------------------------
 All Admin Routes List
 --------------------------------------------
 --------------------------------------------*/
-Route::prefix('admin')->middleware(['auth', 'user-access:admin'])->group(function () {
-    Route::get('/home', [HomeController::class, 'adminHome'])->name('admin.home');
+Route::middleware(['auth', 'user-access:admin'])->group(function () {
+    Route::group(['prefix' => 'admin/'], function () {
+        Route::get('/home', [HomeController::class, 'adminHome'])->name('admin.home');
 
-    Route::middleware(['auth'])->get('/profile', [AdminProfileController::class, 'show'])->name('adminProfile.show');
-    Route::middleware(['auth'])->get('/profile/edit', [AdminProfileController::class, 'edit'])->name('adminProfile.edit');
-    Route::middleware(['auth'])->post('/profile/update', [AdminProfileController::class, 'update'])->name('adminProfile.update');
-
-    // List Users
-    Route::get('/users', [AdminProfileController::class, 'listUsers'])->name('adminProfile.users.index');
-    Route::get('/users', [AdminProfileController::class, 'listUsers'])->name('adminProfile.users');
-    Route::delete('/admin/users/{user}', [AdminProfileController::class, 'deleteUser'])->name('adminProfile.delete');
-    Route::post('/admin/store', [AdminProfileController::class, 'store'])->name('adminProfile.store');
-    Route::get('/admin/create', [AdminProfileController::class, 'create'])->name('adminProfile.create');
-
-    /**
+        /**
      * Manage Catalogue
      */
     Route::get('/manage/package', [CatalogueController::class, 'displayManagePackage'])->name('admin.display.package');
@@ -69,4 +79,11 @@ Route::prefix('admin')->middleware(['auth', 'user-access:admin'])->group(functio
 });
 
 
+/**
+ * 
+ * 
+ * 
+ */
+
+//  Booking 
 
