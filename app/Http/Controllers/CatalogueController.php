@@ -75,7 +75,7 @@ class CatalogueController extends Controller
         $package = new Package();
 
         $request->validate([
-            'packageName' => ['required', 'string', 'max:255'],
+            'packageName' => ['required', 'string', 'max:255', 'unique:packages,packageName'],
             'packagePrice' => ['required', 'numeric', 'min:0', 'regex:/^\d+(\.\d{1,2})?$/'],
             'minimumOrder' => ['required', 'integer'],
             'packageImage' => ['mimes:png,jpeg,jpg,pdf', 'max:2048'],
@@ -120,7 +120,7 @@ class CatalogueController extends Controller
         $package = Package::find($id);
 
         $request->validate([
-            'packageName' => ['required', 'string', 'max:255'],
+            'packageName' => ['required', 'string', 'max:255', 'unique:packages,packageName'],
             'packagePrice' => ['required', 'numeric', 'min:0', 'regex:/^\d+(\.\d{1,2})?$/'],
             'minimumOrder' => ['required', 'integer'],
             'packageImage' => ['mimes:png,jpeg,jpg,pdf', 'max:2048'],

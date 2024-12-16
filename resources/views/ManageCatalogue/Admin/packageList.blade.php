@@ -5,6 +5,15 @@
 
         {{-- main content --}}
         <div class="row justify-content-center mb-4" style="width:80%; height:auto;">
+            @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @elseif (session('destroy'))
+                    <div class="alert alert-danger">
+                        {{ session('destroy') }}
+                    </div>
+                @endif
             {{-- top --}}
             <div class="text-center my-5" style="width: 100%">
                 <h1>Catalogue</h1>
@@ -75,7 +84,7 @@
                         {{-- Card --}}
                         <div class="card" style="width: 24rem; height:auto; box-shadow: 5px 5px 8px rgb(224, 224, 224);">
                             <img class="card-img-top" src="{{ asset('package/' . $item->packageImage) }}"
-                                alt="Package image" style="height:100%; width:auto">
+                                alt="Package image" style="height:100%; width:100%">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $item->packageName }}</h5>
                                 <p class="card-text">{{ $item->packageDesc }}</p>
@@ -145,7 +154,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <div>
@@ -154,7 +163,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <span>Confirm ?</span>
+                <span>This package will be permanently deleted. Do you want to proceed?</span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
