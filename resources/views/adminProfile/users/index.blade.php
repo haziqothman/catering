@@ -10,7 +10,7 @@
                         <i class="fa fa-chevron-circle-left"></i> 
                     </a>
                     <a href="{{ route('adminProfile.create') }}" class="btn btn-primary">
-                         <i class="fas fa-plus"></i> Add Admin
+                         <i class="fas fa-plus"></i> Add New Admin
                     </a>
                 </div>
             @endif 

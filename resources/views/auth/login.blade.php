@@ -63,7 +63,7 @@
                   <input type="checkbox" class="form-check-input" name="remember" id="remember">
                   <label class="form-check-label" for="remember">Keep me logged in</label>
                 </div>
-                <a href="{{ route('password.request') }}" class="text-decoration-none">Forgot password?</a>
+                <a href="{{ route('register') }}" class="text-decoration-none">Forgot password?</a>
               </div>
 
               <div class="d-grid my-3">

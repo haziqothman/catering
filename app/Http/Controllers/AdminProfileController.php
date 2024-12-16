@@ -82,6 +82,8 @@ class AdminProfileController extends Controller
     return redirect()->route('adminProfile.show')->with('success', 'Profile updated successfully!');
   }
 
+// show all user   
+
   public function showProfile()
   {
       $user = auth()->user(); 
@@ -126,6 +128,8 @@ class AdminProfileController extends Controller
         'identification_card' => 'nullable|string|max:255', // Validate identification card (optional)
     ]);
 
+    // Create user
+
     User::create([
         'name' => $request->name,
         'email' => $request->email,
@@ -141,6 +145,8 @@ class AdminProfileController extends Controller
 
     return redirect()->route('adminProfile.users')->with('success', 'Admin created successfully!');
     }
+
+    // edit user for admin
 
     public function editUser($id)
     {
