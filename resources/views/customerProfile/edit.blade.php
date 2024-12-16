@@ -19,7 +19,7 @@
 
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
-                            <input class="form-control" type="text" id="name" name="name" value="{{ old('name', $user->name) }}" required>
+                            <input class="form-control" type="text" id="name" name="name" value="{{ old('name', $user->name) }}" placeholder="Enter your full name" required>
                             @error('name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -27,7 +27,7 @@
 
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input class="form-control" type="email" id="email" name="email" value="{{ old('email', $user->email) }}" required>
+                            <input class="form-control" type="email" id="email" name="email" value="{{ old('email', $user->email) }}" placeholder="Enter your email address" required>
                             @error('email')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -35,7 +35,7 @@
 
                         <div class="mb-3">
                             <label for="address" class="form-label">Address</label>
-                            <input class="form-control" type="text" id="address" name="address" value="{{ old('address', $user->address) }}" required>
+                            <input class="form-control" type="text" id="address" name="address" value="{{ old('address', $user->address) }}" placeholder="Enter your address" required>
                             @error('address')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -43,7 +43,7 @@
 
                         <div class="mb-3">
                             <label for="postcode" class="form-label">Postcode</label>
-                            <input class="form-control" type="number" id="postcode" name="postcode" value="{{ old('postcode', $user->postcode) }}" required>
+                            <input class="form-control" type="number" id="postcode" name="postcode" value="{{ old('postcode', $user->postcode) }}" placeholder="Enter your postcode (e.g., 12345)" required>
                             @error('postcode')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -51,7 +51,7 @@
 
                         <div class="mb-3">
                             <label for="city" class="form-label">City</label>
-                            <input class="form-control" type="text" id="city" name="city" value="{{ old('city', $user->city) }}" required>
+                            <input class="form-control" type="text" id="city" name="city" value="{{ old('city', $user->city) }}" placeholder="Enter your city" required>
                             @error('city')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -59,7 +59,7 @@
 
                         <div class="mb-3">
                             <label for="phone" class="form-label">Phone</label>
-                            <input class="form-control" type="text" id="phone" name="phone" value="{{ old('phone', $user->phone) }}" required>
+                            <input class="form-control" type="text" id="phone" name="phone" value="{{ old('phone', $user->phone) }}" placeholder="Enter your phone number" required>
                             @error('phone')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -69,7 +69,7 @@
                         <!-- Optional company field -->
                         <div class="mb-3">
                             <label for="company" class="form-label">Company (Optional)</label>
-                            <input class="form-control" type="text" id="company" name="company" value="{{ old('company', $user->company) }}">
+                            <input class="form-control" type="text" id="company" name="company" value="{{ old('company', $user->company) }}" placeholder="Enter your company">
                             @error('company')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -77,7 +77,7 @@
 
                         <div class="mb-3">
                             <label for="identification_card" class="form-label">Identification Card</label>
-                            <input class="form-control" type="text" id="identification_card" name="identification_card" value="{{ old('identification_card', $user->identification_card) }}" required>
+                            <input class="form-control" type="text" id="identification_card" name="identification_card" value="{{ old('identification_card', $user->identification_card) }}" placeholder="Enter your identification card" required>
                             @error('identification_card')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -85,12 +85,12 @@
 
                         <div class="mb-3">
                           <label for="password" class="form-label">Password</label>
-                          <input class="form-control" type="password" id="password" name="password">
+                          <input class="form-control" type="password" id="password" name="password" placeholder="Enter your password (if want change)">
                       </div>
 
                       <div class="mb-3">
                           <label for="confirm_password" class="form-label">Confirm Password</label>
-                          <input class="form-control" type="password" id="confirm_password" name="confirm_password">
+                          <input class="form-control" type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your postcode">
                       </div>
 
                       <div class="d-flex justify-content-center gap-2">

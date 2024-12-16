@@ -7,7 +7,7 @@
               @if(auth()->user()->type == 'admin') 
                   <div class="d-flex justify-content-end mb-3">
                       <a href="{{ route('adminProfile.users') }}" class="btn btn-primary">
-                          Manage Users
+                          Manage all Users
                       </a>
                   </div>
               @endif
