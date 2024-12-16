@@ -59,16 +59,18 @@
               </div>
 
               <div class="mb-3">
-                <div class="form-floating">
-                  <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Password" required>
-                  <label for="password">Password</label>
-                </div>
+                <input type="password" 
+                       class="form-control @error('password') is-invalid @enderror" 
+                       name="password" 
+                       placeholder="Password" 
+                       required>
                 @error('password')
-                  <div class="invalid-feedback">
-                    {{ $message }}
-                  </div>
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
                 @enderror
-              </div>
+            </div>
+            
 
               <div class="mb-3">
                 <div class="form-floating">

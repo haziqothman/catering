@@ -26,14 +26,6 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input class="form-control" type="email" id="email" name="email" value="{{ old('email', $user->email) }}" placeholder="Enter your email address" required>
-                            @error('email')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
                             <label for="address" class="form-label">Address</label>
                             <input class="form-control" type="text" id="address" name="address" value="{{ old('address', $user->address) }}" placeholder="Enter your address" required>
                             @error('address')
@@ -84,15 +76,21 @@
                         </div>
 
                         <div class="mb-3">
-                          <label for="password" class="form-label">Password</label>
-                          <input class="form-control" type="password" id="password" name="password" placeholder="Enter your password (if want change)">
-                      </div>
-
-                      <div class="mb-3">
-                          <label for="confirm_password" class="form-label">Confirm Password</label>
-                          <input class="form-control" type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your postcode">
-                      </div>
-
+                            <label for="password" class="form-label">Password</label>
+                            <input class="form-control" type="password" id="password" name="password">
+                            @error('password')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="password_confirmation" class="form-label">Confirm Password</label>
+                            <input class="form-control" type="password" id="password_confirmation" name="password_confirmation">
+                            @error('password_confirmation')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                
                       <div class="d-flex justify-content-center gap-2">
                           <button type="submit" class="btn btn-primary">Update Profile</button>
                           <a href="{{ route('customerProfile.show') }}" class="btn btn-secondary">Cancel</a>

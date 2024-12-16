@@ -26,18 +26,6 @@
                             <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email address" required>
                         </div>
 
-                        <!-- Password -->
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
-                        </div>
-
-                        <!-- Confirm Password -->
-                        <div class="mb-3">
-                            <label for="password_confirmation" class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirm your password" required>
-                        </div>
-
                         <!-- Address -->
                         <div class="mb-3">
                             <label for="address" class="form-label">Address</label>
@@ -66,6 +54,18 @@
                         <div class="mb-3">
                             <label for="identification_card" class="form-label">Identification Card</label>
                             <input type="text" class="form-control" id="identification_card" name="identification_card" placeholder="Enter your identification card" required>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="mb-3">
+                            <label for="password_confirmation" class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirm your password" required>
                         </div>
 
                         <!-- Submit Button -->

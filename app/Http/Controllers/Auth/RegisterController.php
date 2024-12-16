@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/customer/home';
 
     /**
      * Create a new controller instance.
@@ -52,8 +52,12 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'password.min' => 'Your password must be at least 8 characters long.',
+            'password.confirmed' => 'Password confirmation does not match.',
         ]);
     }
+    
 
     /**
      * Create a new user instance after a valid registration.
