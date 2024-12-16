@@ -85,7 +85,7 @@
                 </li>
                 <li class="nav-item">
                     @if (Auth::user()->type == 'admin')
-                        <a class="nav-link" href="{{ route('#') }}">Booking</a>
+                        <a class="nav-link" href="#">Booking</a>
                     @elseif (Auth::user()->type == 'customer')
                         <a class="nav-link" href="{{ route('ManageBooking.Customer.dashboardBooking') }}">Booking</a>
                     @endif
