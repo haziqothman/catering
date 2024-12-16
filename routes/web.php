@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CustomerProfileController;
 use App\Http\Controllers\AdminProfileController;
+use App\Http\Controllers\FeedbackController;
 
+use Illuminate\Routing\Router;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -32,6 +34,12 @@ Route::prefix('customer')->middleware(['auth', 'user-access:customer'])->group(f
      * Manage Catalogue
      */
     Route::get('/package/list', [CatalogueController::class, 'displayPackage'])->name('customer.display.package');
+
+    // manage feedback
+    Route::get('/feedback', [FeedbackController::class, 'index'])->name('customer.feedback.index');
+    Route::get('/feedback/create', [FeedbackController::class, 'create'])->name('customer.feedback.create');
+    Route::post('/feedback', [FeedbackController::class, 'store'])->name('customer.feedback.store');
+    Route::get('/feedback/{id}', [FeedbackController::class, 'show'])->name('customer.feedback.show');
 });
 
 
@@ -66,6 +74,16 @@ Route::prefix('admin')->middleware(['auth', 'user-access:admin'])->group(functio
     Route::get('/package/{id}/edit', [CatalogueController::class, 'editPackage'])->name('admin.edit.package');
     Route::post('/update/{id}/package', [CatalogueController::class, 'updatePackage'])->name('admin.update.package');
     Route::delete('/destroy/{id}/package', [CatalogueController::class, 'destroyPackage'])->name('admin.destroy.package');
+
+
+    
+    // Routes for Admin - Feedback Management
+    // Router::prefix('admin')->group(function () {
+    // Router::get('/feedback', [\App\Http\Controllers\Admin\FeedbackController::class, 'index'])->name('admin.feedback.index');
+    // Router::get('/feedback/{id}', [\App\Http\Controllers\Admin\FeedbackController::class, 'show'])->name('admin.feedback.show');
+    // Router::put('/feedback/{id}', [\App\Http\Controllers\Admin\FeedbackController::class, 'update'])->name('admin.feedback.update');
+    // Router::delete('/feedback/{id}', [\App\Http\Controllers\Admin\FeedbackController::class, 'destroy'])->name('admin.feedback.destroy');
+    // });
 });
 
 
