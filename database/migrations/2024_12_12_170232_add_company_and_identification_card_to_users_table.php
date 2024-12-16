@@ -9,14 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('company')->nullable();  // Optional company field
-            $table->string('identification_card')->nullable();  // Optional identification card field
-        });
-    }
-
+    public function up()
+{
+    Schema::table('users', function (Blueprint $table) {
+        if (!Schema::hasColumn('users', 'company')) {
+            $table->string('company')->nullable();
+        }
+        if (!Schema::hasColumn('users', 'identification_card')) {
+            $table->string('identification_card')->nullable();
+        }
+    });
+}
     /**
      * Reverse the migrations.
      */

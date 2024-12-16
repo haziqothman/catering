@@ -41,9 +41,13 @@ Route::middleware(['auth', 'user-access:customer'])->group(function () {
         Route::get('/customer/dashboard', [BookingController::class, 'show'])->name('ManageBooking.Customer.dashboardBooking');
         Route::get('/booking/create', [BookingController::class, 'create'])->name('ManageBooking.Customer.createBooking');
         Route::post('/customer/store-booking', [BookingController::class, 'store'])->name('customer.store.booking');
-        Route::get('/customer/booking/{id}/edit', [BookingController::class, 'edit'])->name('customer.edit.booking');
+        Route::get('/customer/booking/{id}/edit', [BookingController::class, 'edit'])->name('ManageBooking.Customer.editBooking');
         Route::put('/customer/booking/{id}', [BookingController::class, 'update'])->name('customer.update.booking');
-        Route::get('/booked-dates', [BookingController::class, 'getBookedDates'])->name('booked.dates');
+        Route::get('/booking/{id}/cancel', [BookingController::class, 'cancel'])->name('customer.cancel.booking');
+        Route::get('/booked-dates', function () {
+            $bookedDates = ['2024-12-25', '2024-12-31']; // Replace with dynamic booked dates from DB
+            return response()->json($bookedDates);
+        })->name('booked.dates');
          
         /**
          * Manage Customer Profile
