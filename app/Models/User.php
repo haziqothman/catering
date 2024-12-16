@@ -24,6 +24,8 @@
           'address',
           'phone',
           'city',
+          'postcode',
+          'identification_card',
       ];
   
       /**

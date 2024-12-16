@@ -1,8 +1,12 @@
-@extends('layouts.app')
+@extends('layouts.navigation')
 
 @section('content')
 <div class="container">
     <h1>Feedback Details</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-8 mt-5">
+            <div class="card">
+                <div class="card-header">{{ __('Your Profile') }}</div>
 
     <table class="table">
         <tr>

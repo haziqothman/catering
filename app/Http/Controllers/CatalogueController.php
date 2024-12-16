@@ -170,15 +170,6 @@ class CatalogueController extends Controller
 
     /**
      * 
-     * 
-     * 
-     */
-
-
-
-
-    /**
-     * 
      *      CUSTOMERRRRRRR
      * 
      */
