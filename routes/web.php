@@ -76,14 +76,24 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/package/{id}/edit', [CatalogueController::class, 'editPackage'])->name('admin.edit.package');
     Route::post('/update/{id}/package', [CatalogueController::class, 'updatePackage'])->name('admin.update.package');
     Route::delete('/destroy/{id}/package', [CatalogueController::class, 'destroyPackage'])->name('admin.destroy.package');
+
+        /**
+         * Manage Admin Profile
+         */
+        Route::get('/adminProfile', [AdminProfileController::class, 'show'])->name('adminProfile.show');
+        Route::get('/adminProfile/edit', [AdminProfileController::class, 'edit'])->name('adminProfile.edit');
+        Route::post('/adminProfile/update', [AdminProfileController::class, 'update'])->name('adminProfile.update');
+
+        // List Users
+        Route::get('/users', [AdminProfileController::class, 'listUsers'])->name('adminProfile.users.index');
+        Route::get('/admin/profile/users', [AdminProfileController::class, 'listUsers'])->name('adminProfile.users.index');
+        Route::get('/users', [AdminProfileController::class, 'listUsers'])->name('adminProfile.users');
+        Route::delete('/admin/users/{user}', [AdminProfileController::class, 'deleteUser'])->name('adminProfile.delete');
+        Route::post('/admin/store', [AdminProfileController::class, 'store'])->name('adminProfile.store');
+        Route::get('/admin/create', [AdminProfileController::class, 'create'])->name('adminProfile.create');
+        Route::get('/admin/users/{id}/edit', [AdminProfileController::class, 'editUser'])->name('adminProfile.users.editUser');
+        Route::put('/admin/users/{id}', [AdminProfileController::class, 'updateUser'])->name('adminProfile.updateUser');
+    });
+    
 });
-
-
-/**
- * 
- * 
- * 
- */
-
-//  Booking 
 
