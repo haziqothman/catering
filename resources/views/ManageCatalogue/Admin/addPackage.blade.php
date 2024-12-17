@@ -29,6 +29,9 @@
                         <label for="formGroupExampleInput">Package Name</label>
                         <input type="text" class="form-control" id="formGroupExampleInput" placeholder=""
                             name="packageName" required>
+                        @error('packageName')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group mb-3">
                         <label for="formGroupExampleInput">Price Per Pax</label>

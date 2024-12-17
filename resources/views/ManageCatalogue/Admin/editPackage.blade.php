@@ -1,24 +1,29 @@
 @extends('layouts.navigation')
 
 @section('content')
-    <div class="d-flex justify-content-center" style="border: 1px solid black; width:100%; height:auto">
+    <div class="d-flex justify-content-center" style="width:100%; height:auto">
 
         {{-- main content --}}
-        <div class="row justify-content-center mb-4" style="width:80%; height:auto;border: 1px solid black;">
+        <div class="row justify-content-center mb-4" style="width:80%; height:auto;">
             {{-- top --}}
             <div class="text-center my-5" style="width: 100%">
                 <h1>Edit Catalogue</h1>
                 <p>Manage Your Catalogue Properly!</p>
             </div>
             {{-- middle --}}
-            <div class="mb-3 p-3 d-flex justify-content-center" style="border: 1px solid black; width:100%">
-                <form method="POST" action="{{url('admin/update/' .$package->id.'/package')}}" enctype="multipart/form-data" style="width:60%">
+            <div class="mb-3 py-5 px-0 d-flex justify-content-center"
+                style="background-color:rgb(255, 255, 255); border-radius:20px; box-shadow: 0px 0px 8px rgb(224, 224, 224);">
+                <form method="POST" action="{{ url('admin/update/' . $package->id . '/package') }}"
+                    enctype="multipart/form-data" style="width:60%">
                     @csrf
 
                     <div class="form-group mb-3">
                         <label for="packageName">Package Name</label>
                         <input type="text" class="form-control" id="packageName" name="packageName"
                             value="{{ $package->packageName }}">
+                        @error('packageName')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="form-group mb-3">

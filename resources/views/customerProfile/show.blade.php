@@ -2,81 +2,42 @@
 
 @section('content')
 <div class="container">
+    <h1>Feedback Details</h1>
     <div class="row justify-content-center">
         <div class="col-md-8 mt-5">
             <div class="card">
                 <div class="card-header">{{ __('Your Profile') }}</div>
 
-                <div class="card-body">
-                    <table class="table">
-                        <tr>
-                            <th>Name:</th>
-                            <td>{{ $user->name }}</td>
-                        </tr>
+    <table class="table">
+        <tr>
+            <th>ID:</th>
+            <td>{{ $feedback->id }}</td>
+        </tr>
+        <tr>
+            <th>Name:</th>
+            <td>{{ $feedback->name }}</td>
+        </tr>
+        <tr>
+            <th>Feedback:</th>
+            <td>{{ $feedback->message }}</td>
+        </tr>
+        <tr>
+            <th>Created At:</th>
+            <td>{{ $feedback->created_at }}</td>
+        </tr>
+        <tr>
+            <th>Updated At:</th>
+            <td>{{ $feedback->updated_at }}</td>
+        </tr>
+        {{-- Tampilkan user jika ada relasi --}}
+        @if($feedback->user)
+            <tr>
+                <th>Submitted By:</th>
+                <td>{{ $feedback->user->name }}</td> {{-- Asumsi nama field di tabel users adalah 'name' --}}
+            </tr>
+        @endif
+    </table>
 
-                        <tr>
-                            <th>Email:</th>
-                            <td>{{ $user->email }}</td>
-                        </tr>
-
-                        @if ($user->phone)
-                        <tr>
-                            <th>Phone:</th>
-                            <td>{{ $user->phone }}</td>
-                        </tr>
-                        @endif
-
-                        @if ($user->address)
-                        <tr>
-                            <th>Address:</th>
-                            <td>{{ $user->address }}</td>
-                        </tr>
-                        @endif
-
-                        @if ($user->postcode)
-                        <tr>
-                            <th>Postcode:</th>
-                            <td>{{ $user->postcode }}</td>
-                        </tr>
-                        @endif
-                      
-                        @if ($user->city)
-                        <tr>
-                            <th>City:</th>
-                            <td>{{ $user->city }}</td>
-                        </tr>
-                        @endif
-
-                        @if ($user->company)
-                        <tr>
-                            <th>Company:</th>
-                            <td>{{ $user->company }}</td>
-                        </tr>
-                        @endif
-
-                        @if ($user->identification_card)
-                        <tr>
-                            <th>Identification Card:</th>
-                            <td>{{ $user->identification_card }}</td>
-                        </tr>
-                        @endif
-
-                        <tr>
-                            <th>Joined At:</th>
-                            <td>{{ $user->created_at->format('d M Y') }}</td>
-                        </tr>
-                   
-                    </table>
-
-                      <div class="d-flex justify-content-center gap-2">
-                        <a href="{{ route('customerProfile.edit') }}" class="btn btn-primary">Edit Profile</a>
-
-                        <a href="{{ auth()->user()->type == 'admin' ? route('admin.home') : route('home') }}" class="btn btn-secondary">Cancel</a>
-                     </div> 
-
-                </div>
-            </div>
-        </div>
-    </div>
+    <a href="{{ route('customer.feedback.index') }}" class="btn btn-secondary">Back</a>
 </div>
 @endsection

@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
   
 class AdminProfileController extends Controller
 {
@@ -48,11 +49,10 @@ class AdminProfileController extends Controller
   }
 
   public function update(Request $request)
-  {
+{
     // Validate the incoming data
     $validatedData = $request->validate([
         'name' => 'required|string|max:255',
-        'email' => 'required|email|max:255|unique:users,email,' . auth()->id(),
         'phone' => 'nullable|string|max:15',
         'address' => 'nullable|string|max:255',
         'postcode' => 'required|numeric|min:10000|max:99999',
@@ -61,16 +61,15 @@ class AdminProfileController extends Controller
         'password' => 'nullable|string|min:8|confirmed',
     ]);
 
-       $user = auth()->user();
+    $user = Auth::user();
 
     // Update the user's other details
-        $user->name = $validatedData['name'];
-        $user->email = $validatedData['email'];
-        $user->phone = $validatedData['phone'];
-        $user->address = $validatedData['address'];
-        $user->city = $validatedData['city'];
-        $user->postcode = $validatedData['postcode'];
-        $user->identification_card = $validatedData['identification_card'];
+    $user->name = $validatedData['name'];
+    $user->phone = $validatedData['phone'];
+    $user->address = $validatedData['address'];
+    $user->city = $validatedData['city'];
+    $user->postcode = $validatedData['postcode'];
+    $user->identification_card = $validatedData['identification_card'];
 
     // Update password only if a new one is provided
     if ($request->filled('password')) {
@@ -80,7 +79,8 @@ class AdminProfileController extends Controller
     $user->save();
 
     return redirect()->route('adminProfile.show')->with('success', 'Profile updated successfully!');
-  }
+}
+
 
 // show all user   
 
