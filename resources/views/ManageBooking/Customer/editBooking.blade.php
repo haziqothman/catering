@@ -35,18 +35,6 @@
                         <input type="tel" id="contactNumber" name="contactNumber" value="{{ old('contactNumber', $booking->contactNumber) }}" class="form-control" placeholder="e.g., +60123456789" required>
                     </div>
 
-                    {{-- Package Name --}}
-                    <div class="form-group mb-3">
-                        <label for="packageName" class="form-label">Select Package</label>
-                        <select id="packageName" name="packageName" class="form-select" required>
-                            <option value="" disabled>Select a package</option>
-                            <option value="Wedding Special" {{ old('packageName', $booking->packageName) == 'wedding_special' ? 'selected' : '' }}>Wedding Special</option>
-                            <option value="Birthday Bash" {{ old('packageName', $booking->packageName) == 'birthday_bash' ? 'selected' : '' }}>Birthday Bash</option>
-                            <option value="Corporate Event" {{ old('packageName', $booking->packageName) == 'corporate_event' ? 'selected' : '' }}>Corporate Event</option>
-                            <option value="Casual Gathering" {{ old('packageName', $booking->packageName) == 'casual_gathering' ? 'selected' : '' }}>Casual Gathering</option>
-                        </select>
-                    </div>
-
                     {{-- Number of Pax --}}
                     <div class="form-group mb-3">
                         <label for="numPax" class="form-label">Number of Pax (Guests)</label>

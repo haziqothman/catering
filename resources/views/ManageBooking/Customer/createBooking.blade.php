@@ -22,42 +22,54 @@
             </div>
 
             {{-- Form --}}
-            <form method="POST" action="{{ route('customer.store.booking') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ url('customer/customer/' .$package->id. '/store-booking') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-3">
+                    {{-- Package Id --}}
+                    <input type="hidden" name="packageId" value="{{ $package->id }}">
                     {{-- Customer Name --}}
                     <div class="mb-3">
                         <label for="customerName" class="form-label">Customer Name</label>
-                        <input type="text" id="customerName" name="customerName" class="form-control" placeholder="e.g., Amira Humairah" required>
+                        <input type="text" id="customerName" name="customerName" class="form-control"  value="{{ old('customerName', $user->name) }}" placeholder="e.g., Amira Humairah" required>
                     </div>
 
                     {{-- Customer Email --}}
                     <div class="mb-3">
                         <label for="customerEmail" class="form-label">Customer Email</label>
-                        <input type="email" id="customerEmail" name="customerEmail" class="form-control" placeholder="e.g., xxxxxxxx@gmail.com" required>
+                        <input type="email" id="customerEmail" name="customerEmail" class="form-control" value="{{ old('customerEmail', $user->email) }}" placeholder="e.g., xxxxxxxx@gmail.com" required>
                     </div>
 
                     {{-- Contact Details --}}
                     <div class="mb-3">
                         <label for="contactNumber" class="form-label">Contact Number</label>
-                        <input type="tel" id="contactNumber" name="contactNumber" class="form-control" placeholder="e.g., +60123456789" required>
+                        <input type="tel" id="contactNumber" name="contactNumber" class="form-control" value="{{ old('contactNumber', $user->phone ?? '') }}" placeholder="e.g., +60123456789" required>
+                        <div class="invalid-feedback">
+                            Please enter a valid phone number
+                        </div>
                     </div>
-                    {{-- Package Name --}}
-                    <div class="mb-3">
-                        <label for="packageName" class="form-label">Select Package</label>
-                        <select id="packageName" name="packageName" class="form-select" required>
-                            <option value="" disabled selected>Select a package</option>
-                            <option value="Wedding Special">Wedding Special</option>
-                            <option value="Birthday Bash">Birthday Bash</option>
-                            <option value="Corporate Event">Corporate Event</option>
-                            <option value="Casual Gathering">Casual Gathering</option>
-                        </select>
+                    <!-- Package Details -->
+                    <div class="form-group">
+                        <label for="packageName">Package Name</label>
+                        <input type="text" name="packageName" id="packageName" class="form-control" 
+                            value="{{$package->packageName}}" readonly>
                     </div>
+
+                    <div class="form-group">
+                        <label for="packageDesc">Package Description</label>
+                        <textarea name="packageDesc" id="packageDesc" rows="6" class="form-control" readonly> {{$package->packageDesc}}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="packagePrice">Price Per Pax</label>
+                        <input type="text" name="packagePrice" id="packagePrice" class="form-control" 
+                        value="{{$package->packagePrice}}" readonly>
+                    </div>
+
 
                     {{-- Number of Pax --}}
                     <div class="mb-3">
                         <label for="numPax" class="form-label">Number of Pax (Guests)</label>
-                        <input type="number" id="numPax" name="numPax" class="form-control" min="1" max="10000000" required placeholder="Enter number of guests">
+                        <input type="number" id="numPax" name="numPax" class="form-control" min="1" placeholder="Enter number of guests" required > 
                         <div class="invalid-feedback">
                             Please enter a valid number of guests
                         </div>
@@ -66,19 +78,25 @@
                     {{-- Additional Notes --}}
                     <div class="mb-3">
                         <label for="notes" class="form-label">Additional Notes</label>
-                        <textarea id="notes" name="notes" rows="4" class="form-control" placeholder="Remarks/Notes" required></textarea>
+                        <textarea id="notes" name="notes" rows="2" class="form-control" placeholder="Remarks/Notes" required></textarea>
                     </div>
 
                     {{-- Event Date --}}
                     <div class="mb-3">
                         <label for="eventDate" class="form-label">Event Date</label>
                         <input type="text" id="eventDate" name="eventDate" class="form-control" required>
+                        <div class="invalid-feedback">
+                            Please select a valid event date.
+                        </div>
                     </div>
 
                     {{-- Event Location --}}
                     <div class="mb-3">
                         <label for="eventLocation" class="form-label">Event Location</label>
                         <input type="text" id="eventLocation" name="eventLocation" class="form-control" placeholder="e.g., ABC Hall (full address required)" required>
+                        <div class="invalid-feedback">
+                            Please insert the event location.
+                        </div>
                     </div>
 
                     {{-- Submit Button --}}
@@ -147,6 +165,21 @@
         /* Optional: change the background color of unavailable dates */
         .flatpickr-day.unavailable:hover {
             background-color: #f8d7da; /* Light red background on hover */
+        }
+
+        /* Custom invalid feedback */
+        .invalid-feedback {
+            display: none;
+        }
+
+        /* Display error message when input is invalid */
+        input:invalid, textarea:invalid {
+            border-color: #e74a3b;
+        }
+
+        input:invalid + .invalid-feedback,
+        textarea:invalid + .invalid-feedback {
+            display: block;
         }
     </style>
 @endsection

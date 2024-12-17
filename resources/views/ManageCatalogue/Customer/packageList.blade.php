@@ -97,7 +97,7 @@
                                 <p class="card-text">{{ $item->packageDesc }}</p>
                                 <p class="card-text">Minimum order: {{ $item->minimumOrder }}</p>
                                 <p class="card-text">RM {{ $item->packagePrice }} per pax</p>
-                                <a href="" class="btn btn-primary">Book Now!</a>
+                                <a href="{{ url('customer/booking/' .$item->id. '/create') }}" class="btn btn-primary">Book Now!</a>
                             </div>
                         </div>
                     @endforeach

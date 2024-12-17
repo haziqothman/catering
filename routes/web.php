@@ -39,15 +39,13 @@ Route::middleware(['auth', 'user-access:customer'])->group(function () {
          * Manage Booking
          */
         Route::get('/customer/dashboard', [BookingController::class, 'show'])->name('ManageBooking.Customer.dashboardBooking');
-        Route::get('/booking/create', [BookingController::class, 'create'])->name('ManageBooking.Customer.createBooking');
-        Route::post('/customer/store-booking', [BookingController::class, 'store'])->name('customer.store.booking');
+        Route::get('/booking/{id}/create', [BookingController::class, 'create'])->name('ManageBooking.Customer.createBooking');
+        Route::post('/customer/{id}/store-booking', [BookingController::class, 'store'])->name('customer.store.booking');
         Route::get('/customer/booking/{id}/edit', [BookingController::class, 'edit'])->name('ManageBooking.Customer.editBooking');
         Route::put('/customer/booking/{id}', [BookingController::class, 'update'])->name('customer.update.booking');
         Route::get('/booking/{id}/cancel', [BookingController::class, 'cancel'])->name('customer.cancel.booking');
-        Route::get('/booked-dates', function () {
-            $bookedDates = ['2024-12-25', '2024-12-31']; // Replace with dynamic booked dates from DB
-            return response()->json($bookedDates);
-        })->name('booked.dates');
+        Route::get('/booking/{id}/view', [BookingController::class, 'view'])->name('ManageBooking.Customer.viewBooking');
+
          
         /**
          * Manage Customer Profile
@@ -76,6 +74,13 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/package/{id}/edit', [CatalogueController::class, 'editPackage'])->name('admin.edit.package');
     Route::post('/update/{id}/package', [CatalogueController::class, 'updatePackage'])->name('admin.update.package');
     Route::delete('/destroy/{id}/package', [CatalogueController::class, 'destroyPackage'])->name('admin.destroy.package');
+
+
+            // Manage Booking
+            Route::get('/bookings', [BookingController::class, 'index'])->name('admin.bookings.index');
+            Route::post('/bookings/{id}/approve', [BookingController::class, 'approveBooking'])->name('admin.bookings.approve');
+            
+
 
         /**
          * Manage Admin Profile

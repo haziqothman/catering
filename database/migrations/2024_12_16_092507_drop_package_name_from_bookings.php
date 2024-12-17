@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUserIdToBookingsTable extends Migration
+class DropPackageNameFromBookings extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,7 @@ class AddUserIdToBookingsTable extends Migration
     public function up()
     {
         Schema::table('bookings', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->nullable(false); 
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->dropColumn('packageName');
         });
     }
 
@@ -27,7 +26,7 @@ class AddUserIdToBookingsTable extends Migration
     public function down()
     {
         Schema::table('bookings', function (Blueprint $table) {
-            $table->dropColumn('user_id');
+            $table->string('packageName')->nullable(); // Add the column back if needed
         });
     }
 }
