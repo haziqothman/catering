@@ -8,7 +8,7 @@ use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\RegisterController;
-
+use App\Http\Controllers\FeedbackController;
 use Illuminate\Routing\Router;
 
 Route::get('/', function () {
@@ -54,6 +54,13 @@ Route::middleware(['auth', 'user-access:customer'])->group(function () {
         Route::get('/customerProfile', [CustomerProfileController::class, 'show'])->name('customerProfile.show');
         Route::get('/customerProfile/edit', [CustomerProfileController::class, 'edit'])->name('customerProfile.edit');
         Route::post('/customerProfile/update', [CustomerProfileController::class, 'update'])->name('customerProfile.update');
+
+        /**
+         * Manage feedback
+         */
+        Route::get('/feedback', [FeedbackController::class, 'index'])->name('customer.feedback');
+        Route::get('/feedback/create', [FeedbackController::class, 'create'])->name('customer.feedback.create');
+        Route::get('feedback/show', [FeedbackController::class, 'show'])->name('customer.feedback.show');
     });
 });
 

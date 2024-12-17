@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.navigation')
 
 @section('content')
 <div class="container">
@@ -14,7 +14,8 @@
         </div>
     @endif
 
-    <form action="{{ route('customer.feedback.store') }}" method="POST">
+    {{-- <form action="{{ route('customer.feedback.store') }}" method="POST"> --}}
+        <form action="" method="POST">
         <div class="mb-3">
             <label for="name" class="form-label">Name</label>
             <input type="text" name="name" class="form-control" id="name" required>
@@ -25,8 +26,9 @@
             <textarea name="message" class="form-control" id="message" rows="4" required></textarea>
         </div>
 
-        <button type="submit" class="btn btn-success">Submit</button>
-        <a href="{{ route('feedback.index') }}" class="btn btn-secondary">Back</a>
+        <a href="{{route('customer.feedback')}}" class="btn btn-success">Submit</a>
+        {{-- <a href="{{ route('feedback.index') }}" class="btn btn-secondary">Back</a> --}}
+        <a href="{{route('customer.feedback')}}" class="btn btn-secondary">Back</a>
     </form>
 </div>
 @endsection

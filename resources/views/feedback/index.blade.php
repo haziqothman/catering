@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.navigation')
 
 @section('content')
 <div class="container">
@@ -25,7 +25,7 @@
                     <td>{{ $feedback->name }}</td>
                     <td>{{ $feedback->message }}</td>
                     <td>
-                        <a href="{{ route('customer.feedback.show', $feedback->id) }}" class="btn btn-info btn-sm">View</a>
+                        <a href="#" class="btn btn-info btn-sm">View</a>
                         {{-- Tambahkan tombol edit/delete jika diperlukan, khusus untuk admin --}}
                         @if(auth()->user()->role == 'admin')
                             {{-- <a href="{{ route('admin.feedback.edit', $feedback->id) }}" class="btn btn-warning btn-sm">Edit</a> --}}

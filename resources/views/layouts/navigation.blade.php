@@ -91,7 +91,7 @@
                     @endif
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Review</a>
+                    <a class="nav-link" href="{{route('customer.feedback')}}">Feedback</a>
                 </li>
             </ul>
         </div>

@@ -33,16 +33,16 @@ class FeedbackController extends Controller
         return redirect()->route('customer.feedback.index')->with('success', 'Feedback created successfully (Dummy).');
     }
 
-    public function show($id)
+    public function show()
     {
         // Buat dummy data untuk detail feedback berdasarkan ID
-        $dummyFeedbacks = [
+        $feedback = [
             1 => (object) ['id' => 1, 'name' => 'John Doe', 'message' => 'This is a great service!', 'created_at' => now(), 'updated_at' => now()],
             2 => (object) ['id' => 2, 'name' => 'Jane Smith', 'message' => 'I had a wonderful experience.', 'created_at' => now(), 'updated_at' => now()],
             3 => (object) ['id' => 3, 'name' => 'Peter Jones', 'message' => 'Could be better, but overall satisfied.', 'created_at' => now(), 'updated_at' => now()],
         ];
 
-        $feedback = $dummyFeedbacks[$id] ?? null; // Ambil data berdasarkan ID, atau null jika tidak ada
+        // $feedback = $dummyFeedbacks["id"] ?? null; // Ambil data berdasarkan ID, atau null jika tidak ada
 
         if (!$feedback) {
             abort(404); // Tampilkan error 404 jika feedback tidak ditemukan
