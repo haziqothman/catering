@@ -38,7 +38,7 @@
                     {{-- Number of Pax --}}
                     <div class="form-group mb-3">
                         <label for="numPax" class="form-label">Number of Pax (Guests)</label>
-                        <input type="number" id="numPax" name="numPax" value="{{ old('numPax', $booking->numPax) }}" min="1" max="10000000" class="form-control" placeholder="Enter number of guests" required>
+                        <input type="number" id="numPax" name="numPax" value="{{ old('numPax', $booking->numPax) }}" class="form-control" placeholder="Enter number of guests" required>
                     </div>
 
                     {{-- Additional Notes --}}

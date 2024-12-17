@@ -59,10 +59,8 @@ class BookingController extends Controller
     public function show() 
         {
     // Fetch bookings for the authenticated user or current session
-    $bookings = Booking::all();
-    $bookings = Booking::with('package')->get();
-
-    // Pass the bookings to the view
+    $user = Auth::user()->id;  // Get the authenticated user's ID
+    $bookings = Booking::with('package')->where('user_id', $user)->get();  // Filter bookings by user ID
     return view('ManageBooking.Customer.dashboardBooking', compact('bookings'));
     }
 
@@ -114,7 +112,7 @@ class BookingController extends Controller
                 'notes' => $validated['notes'],
                 'eventDate' => $validated['eventDate'],
                 'eventLocation' => $validated['eventLocation'],
-                'userId' => Auth::user()->id,  // Ensure you're saving the user ID correctly
+                'user_id' => Auth::user()->id,  // Ensure you're saving the user ID correctly
             ]);
         
             // Redirect to the desired route with a success message
@@ -140,7 +138,7 @@ class BookingController extends Controller
         'customerName' => 'required|string|max:255',
         'customerEmail' => 'required|email|max:255',
         'contactNumber' => 'required|string|max:20',
-        'numPax' => 'required|integer|min:1 max:100000000',
+        'numPax' => 'required|integer',
         'notes' => 'nullable|string|max:1000',
         'eventDate' => 'required|date|after_or_equal:today',
         'eventLocation' => 'required|string|max:255',

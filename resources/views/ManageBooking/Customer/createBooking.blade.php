@@ -69,7 +69,7 @@
                     {{-- Number of Pax --}}
                     <div class="mb-3">
                         <label for="numPax" class="form-label">Number of Pax (Guests)</label>
-                        <input type="number" id="numPax" name="numPax" class="form-control" min="1" placeholder="Enter number of guests" required > 
+                        <input type="number" id="numPax" name="numPax" class="form-control"  placeholder="Enter number of guests" required > 
                         <div class="invalid-feedback">
                             Please enter a valid number of guests
                         </div>
